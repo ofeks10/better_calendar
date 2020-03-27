@@ -8,12 +8,10 @@ function Header() {
     const [activeLink, setActiveLink] = useState(false)
 
     return (
-        <div>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow fixed-top">
-                <Brand />
-                <NavBarLinks />
-            </nav>
-        </div>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow fixed-top">
+            <Brand />
+            <NavBarLinks />
+        </nav>
     );
 }
 
