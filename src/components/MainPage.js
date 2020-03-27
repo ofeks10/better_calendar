@@ -4,7 +4,7 @@ function MainPage(props) {
     return (
         <div>
             <h1 className="font-weight-light">{props.title}</h1>
-            <p class="lead">{props.description}</p>
+            <p className="lead">{props.description}</p>
         </div>
     )
 }
