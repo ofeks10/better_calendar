@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 import { Formik } from 'formik';
-let yup = require('yup');
+import * as yup from 'yup'
 
 
 const schema = yup.object({
