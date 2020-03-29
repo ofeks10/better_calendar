@@ -6,7 +6,7 @@ import {
 
 import BasicLayout from './BasicLayout.js'
 import MainPage from './MainPage.js'
-import MainPageForm from './MainPageForm.js'
+import MainPageModalOpener from './MainPageModalOpener.js'
 
 function Calendar(props) {
     return (<div><br /><br /><h1> Hello {props.match.params.hash} </h1></div>)
@@ -21,7 +21,7 @@ function MainContent() {
                         title="Calendar Site"
                         description="A quick and easy way to create a shareable calendar"
                     />
-                    <MainPageForm />
+                    <MainPageModalOpener />
                 </BasicLayout>
             )} />
             <Route path="/about" render={props => (
