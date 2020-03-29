@@ -1,8 +1,8 @@
 import time
+from hashlib import sha1
 
 from flask import Flask
 from flask import request
-from hashlib import sha1
 
 app = Flask(__name__)
 
