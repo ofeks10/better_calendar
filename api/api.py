@@ -10,7 +10,7 @@ app = Flask(__name__)
 def get_time():
     return {'time': time.time()}
 
-@app.route('/create_calendar', methods=['POST'])
+@app.route('/calendar', methods=['POST'])
 def calendar_handler():
     calendar_title = request.get_json()['calendar_title'].encode('utf-8')
     if len(calendar_title) >= 256 or len(calendar_title) < 4:
