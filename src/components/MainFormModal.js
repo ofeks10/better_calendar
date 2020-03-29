@@ -16,18 +16,20 @@ const schema = yup.object({
 })
 
 
-function handleFormSubmit(values, {setSubmitting, setErrors}) {
+async function handleFormSubmit(values, {setSubmitting, setErrors}) {
     setSubmitting(true)
-    axios.post('/create_calendar', {
-        calendar_title: values.calendarTitle,
-    })
-    .then(response => {
+    try {
+        const response = await axios.post('/create_calendar', {
+            calendar_title: values.calendarTitle,
+        })
         if (!response.data.success) {
-            setErrors({calendarTitle: response.data.error_msg})
+            setErrors({ calendarTitle: response.data.error_msg })
         } else {
             window.location.replace('/calendar/' + response.data.hash)
         }
-    })
+    } catch (error) {
+        console.log(error)
+    }
     setSubmitting(false)
 }
 
