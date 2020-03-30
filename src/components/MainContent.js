@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     Switch,
     Route,
@@ -8,8 +8,36 @@ import BasicLayout from './BasicLayout.js'
 import MainPage from './MainPage.js'
 import MainPageModalOpener from './MainPageModalOpener.js'
 
+const axios = require('axios');
+
+async function getCalendarTitle(hash) {
+    try{
+        const {data} = await axios.get('/calendar?calendar_hash=' + hash)
+        if (!data.success) {
+            return data.error_msg
+        } else {
+            console.log(data.title)
+            return data.title
+        }
+    } catch(error) {
+        console.log(error)
+    }
+}
+
 function Calendar(props) {
-    return (<div><br /><br /><h1> Hello {props.match.params.hash} </h1></div>)
+    const [calendarTitle, setCalendarTitle] = useState("")
+
+    useEffect(async () => {
+        const title = await getCalendarTitle(props.match.params.hash)
+        console.log(title)
+        setCalendarTitle(title)
+    }, [])
+
+    return (
+        <div>
+            <h1>{calendarTitle}</h1>
+        </div>
+    )
 }
 
 function MainContent() {

@@ -38,6 +38,15 @@ def calendar_handler():
         calendar_title = request.get_json()['calendar_title'].encode('utf-8')
         return handle_calendar_post(calendar_title)
     else: # GET method for getting a calendar
-        calendar_hash = request.get_json()['calendar_hash'].encode('utf-8')
+        print("---------------------------------------------------")
+        print(request.args)
+        print(request.get_json())        
+        calendar_hash = request.args.get('calendar_hash')
+        print("Calendar hash: %s" % calendar_hash)
         c = Calendar.query.get({'hash': calendar_hash})
-        return {'success': True, 'title': c.title}
+        print("c is: %s" % c)
+        print("---------------------------------------------------")        
+        if c is not None:
+            return {'success': True, 'title': c.title.decode('utf-8')}
+        else:
+            return {'success': False, 'error_msg': 'calendar not found'}
