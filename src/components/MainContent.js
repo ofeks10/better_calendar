@@ -27,11 +27,14 @@ async function getCalendarTitle(hash) {
 function Calendar(props) {
     const [calendarTitle, setCalendarTitle] = useState("")
 
-    useEffect(async () => {
-        const title = await getCalendarTitle(props.match.params.hash)
-        console.log(title)
-        setCalendarTitle(title)
-    }, [])
+    useEffect(() => {
+        async function getData(hash) {
+            const title = await getCalendarTitle(hash)
+            console.log(title)
+            setCalendarTitle(title)
+        }
+        getData(props.match.params.hash)
+    }, [props.match.params.hash])
 
     return (
         <div>
