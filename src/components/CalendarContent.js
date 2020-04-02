@@ -1,5 +1,16 @@
 import React, {useState, useEffect} from 'react'
 
+import {
+    Card, 
+    ListGroup,
+    Container,
+    Row,
+    Col
+} from 'react-bootstrap'
+
+import './CalendarContent.css'
+import '../App.css'
+
 const axios = require('axios')
 
 async function getCalendarTitle(hash) {
@@ -18,20 +29,84 @@ async function getCalendarTitle(hash) {
 
 function CalendarContent(props) {
     const [calendarTitle, setCalendarTitle] = useState("")
+    const [isCalendarTitleLoading, setCalendarTitleLoading] = useState(true)
 
     useEffect(() => {
         async function getData(hash) {
             const title = await getCalendarTitle(hash)
-            console.log(title)
             setCalendarTitle(title)
+            setCalendarTitleLoading(false)
         }
         getData(props.match.params.hash)
     }, [props.match.params.hash])
 
+    let rows = [];
+    for (let i = 1; i <= 48; i++) {
+        rows.push(<ListGroup.Item variant='dark'>{i}</ListGroup.Item>)
+    }
+
+
     return (
-        <div>
-            <h1>{calendarTitle}</h1>
-        </div>
+        <Container fluid className="main-content">
+            <Row>
+                <Col>
+                    <h2>{isCalendarTitleLoading ? "Loading..." : calendarTitle}</h2>
+                </Col>
+            </Row>
+            <Row styleName='m-0' noGutters>
+                <Col styleName='text-left'>Test</Col>
+                <Col>
+                    <Card bg='dark'>
+                        <Card.Header>
+                            test
+                        </Card.Header>
+                        <ListGroup variant='dark'>
+                            {rows}
+                        </ListGroup>
+                    </Card>
+                </Col>
+                <Col>
+                    <Card bg='dark'>
+                        <Card.Header>
+                            test
+                        </Card.Header>
+                        <ListGroup variant='dark'>
+                            {rows}
+                        </ListGroup>
+                    </Card>
+                </Col>
+                <Col>
+                    <Card bg='dark'>
+                        <Card.Header>
+                            test
+                        </Card.Header>
+                        <ListGroup variant='dark'>
+                            {rows}
+                        </ListGroup>
+                    </Card>
+                </Col>
+                <Col>
+                    <Card bg='dark'>
+                        <Card.Header>
+                            test
+                        </Card.Header>
+                        <ListGroup variant='dark'>
+                            {rows}
+                        </ListGroup>
+                    </Card>
+                </Col>
+                <Col>
+                    <Card bg='dark'>
+                        <Card.Header>
+                            test
+                        </Card.Header>
+                        <ListGroup variant='dark'>
+                            {rows}
+                        </ListGroup>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

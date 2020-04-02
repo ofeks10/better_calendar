@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom'
 
 import BasicLayout from './BasicLayout.js'
+import BasicLayoutCenterAligned from './BasicLayoutCenterAligned.js'
 import MainPage from './MainPage.js'
 import MainPageModalOpener from './MainPageModalOpener.js'
 import CalendarContent from './CalendarContent.js' 
@@ -13,29 +14,29 @@ function MainContent() {
     return (
         <Switch>
             <Route exact path="/" render={props => (
-                <BasicLayout>
+                <BasicLayoutCenterAligned>
                     <MainPage 
                         title="Calendar Site"
                         description="A quick and easy way to create a shareable calendar"
                     />
                     <MainPageModalOpener />
-                </BasicLayout>
+                </BasicLayoutCenterAligned>
             )} />
             <Route path="/about" render={props => (
-                <BasicLayout>
+                <BasicLayoutCenterAligned>
                     <h1>About Page</h1>
-                </BasicLayout>
+                </BasicLayoutCenterAligned>
             )} />
             <Route path="/contact" render={props => (
-                <BasicLayout>
+                <BasicLayoutCenterAligned>
                     <h1>Contact Page</h1>
-                </BasicLayout>
+                </BasicLayoutCenterAligned>
             )} />>            
             <Route path="/calendar/:hash" render={props => (
                 <BasicLayout>
                     <CalendarContent {...props} />
                 </BasicLayout>
-            )} />
+            )}/>
         </Switch>
     )
 }
