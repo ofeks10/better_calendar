@@ -1,6 +1,5 @@
 .main-content {
     position: absolute;
-    height: calc(100% - 150px);
     right: 0;
     left: 0;
     top: 80px;
