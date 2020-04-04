@@ -9,7 +9,6 @@ import {
 } from 'react-bootstrap'
 
 import './CalendarContent.css'
-import '../App.css'
 
 const axios = require('axios')
 

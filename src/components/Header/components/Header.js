@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Brand from './Brand.js'
-import NavBarLinks from './NavBarLinks.js'
+import Brand from './NavBar/components/Brand.js'
+import NavBarLinks from './NavBar/components/NavBarLinks.js'
 
 
 function Header() {

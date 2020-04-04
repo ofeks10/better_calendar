@@ -6,9 +6,9 @@ import {
 
 import BasicLayout from './BasicLayout.js'
 import BasicLayoutCenterAligned from './BasicLayoutCenterAligned.js'
-import MainPage from './MainPage.js'
-import MainPageModalOpener from './MainPageModalOpener.js'
-import CalendarContent from './CalendarContent.js' 
+import MainPage from './MainPage/components/MainPage.js'
+import MainPageModalOpener from './MainPage/components/MainPageModalOpener.js'
+import CalendarContent from './CalendarContent/components/CalendarContent.js' 
 
 function MainContent() {
     return (
