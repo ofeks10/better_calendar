@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState} from 'react'
 
 import {
     Container,
@@ -10,10 +10,12 @@ import CalendarMainView from './CalendarMainView.js'
 import './stylesheets/CalendarContent.css'
 
 function CalendarContent(props) {
+    const [shouldDisplayMainView, setShouldDisplayMainView] = useState(false)
+
     return (
         <Container fluid className="main-content">
-            <CalendarTitle hash={props.match.params.hash} />
-            <CalendarMainView hash={props.match.params.hash} />
+            <CalendarTitle hash={props.match.params.hash} changeShouldDisplay={setShouldDisplayMainView}/>
+            {shouldDisplayMainView && <CalendarMainView hash={props.match.params.hash} />}
         </Container>
     )
 }

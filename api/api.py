@@ -49,4 +49,4 @@ def calendar_handler():
         if c is not None:
             return {'success': True, 'title': c.title.decode('utf-8')}
         else:
-            return {'success': False, 'error_msg': 'calendar not found'}
+            return {'success': False, 'error_msg': 'Calendar Not Found'}
