@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 
 import {
     Container,
@@ -33,6 +33,8 @@ function CalendarContent(props) {
     const [isCalendarTitleLoading, setCalendarTitleLoading] = useState(true)
     const [selectedDate, setSelectedDate] = useState(new Date())
 
+    const myRef = useRef(null)
+
     useEffect(() => {
         async function getData(hash) {
             const title = await getCalendarTitle(hash)
@@ -42,9 +44,17 @@ function CalendarContent(props) {
         getData(props.match.params.hash)
     }, [props.match.params.hash])
 
+    const scrollToRef = (ref) => {
+        ref.current.scrollTo({
+            top: 0, 
+            behavior: 'smooth'
+        })
+    }
+
     const onDateChange = date => {
         setSelectedDate(date)
-        console.log(date)
+        scrollToRef(myRef)
+        console.log(myRef)
     }
 
     return (
@@ -62,7 +72,7 @@ function CalendarContent(props) {
                         value={selectedDate}
                     />
                 </Col>
-                <Col lg={9} className="h-100 scrollable-content">
+                <Col ref={myRef} lg={9} className="h-100 scrollable-content">
                     {/* Viewer */}
                     <EventViewer date={selectedDate} />
                 </Col>

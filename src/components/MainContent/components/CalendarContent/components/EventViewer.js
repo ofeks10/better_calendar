@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 
 import { 
     Table
@@ -6,22 +6,14 @@ import {
 
 function EventViewer(props) {
 
-    useEffect(() => {
-        console.log(window)
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    }, [props.date]);
-
     let rows = []
     for (let i = 0; i < 48; i++) {
-        rows.push(<tr><td>0:00</td><td>{i+1}</td></tr>)
+        rows.push(<tr key={i}><td>0:00</td><td>{i+1}</td></tr>)
     }
     return (
         <Table bordered variant='dark'>
             <thead>
-                <tr>
+                <tr ref={props.ref}>
                     <th style={{width: '10%'}}>
                     </th>
                     <th>
