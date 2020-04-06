@@ -62,7 +62,7 @@ function CalendarContent(props) {
                         value={selectedDate}
                     />
                 </Col>
-                <Col id="eventsContent" lg={9} className="h-100 scrollable-content">
+                <Col lg={9} className="h-100 scrollable-content">
                     {/* Viewer */}
                     <EventViewer date={selectedDate} />
                 </Col>

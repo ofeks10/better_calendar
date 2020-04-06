@@ -7,7 +7,8 @@ import {
 function EventViewer(props) {
 
     useEffect(() => {
-        document.getElementById('eventsContent').scrollTo({
+        console.log(window)
+        window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
