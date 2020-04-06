@@ -49,20 +49,20 @@ function CalendarContent(props) {
 
     return (
         <Container fluid className="main-content">
-            <Row>
+            <Row className="title-row">
                 <Col>
                     <h2>{isCalendarTitleLoading ? "Loading..." : calendarTitle}</h2>
                 </Col>
             </Row>
-            <Row>
-                <Col lg={3}>
+            <Row className="content-row">
+                <Col lg={3} className="h-100">
                     {/* Widget */}
                     <Calendar 
                         onChange={onDateChange}
                         value={selectedDate}
                     />
                 </Col>
-                <Col lg={9} className='my-css-class'>
+                <Col lg={9} className="h-100 scrollable-content">
                     {/* Viewer */}
                     <EventViewer date={selectedDate} />
                 </Col>

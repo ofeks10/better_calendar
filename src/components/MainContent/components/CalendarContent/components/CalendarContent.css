@@ -1,15 +1,23 @@
 .main-content {
-    position: fixed;
+    height: calc(100% - 160px);
+    width: 100%;
+    position: absolute;
     right: 0;
     left: 0;
     top: 80px;
     bottom: 80px;
     overflow-y: hidden;
 }
+.title-row {
+    height: 7%;
+}
 
-.my-css-class {
-    height: 10000px !important;
-    overflow-y: scroll !important;
+.content-row {
+    height: 93%;
+}
+
+.scrollable-content {
+    overflow-y: scroll;
 }
 
 .react-calendar {

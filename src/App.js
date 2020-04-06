@@ -13,7 +13,7 @@ import './App.css'
 
 function App() {
     return (
-        <div className="text-center">
+        <div className="h-100 text-center">
             <Router>
                 <Header />
                 <MainContent />
