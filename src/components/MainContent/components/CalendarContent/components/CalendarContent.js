@@ -4,7 +4,6 @@ import {
     Container,
     Row,
     Col,
-    Table
 } from 'react-bootstrap'
 import Calendar from 'react-calendar'
 
