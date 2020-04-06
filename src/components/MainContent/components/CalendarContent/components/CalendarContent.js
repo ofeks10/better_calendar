@@ -6,7 +6,11 @@ import {
     Col,
     Table
 } from 'react-bootstrap'
+import Calendar from 'react-calendar'
 
+import EventViewer from './EventViewer.js'
+
+import 'react-calendar/dist/Calendar.css';
 import './CalendarContent.css'
 
 const axios = require('axios')
@@ -28,6 +32,7 @@ async function getCalendarTitle(hash) {
 function CalendarContent(props) {
     const [calendarTitle, setCalendarTitle] = useState("")
     const [isCalendarTitleLoading, setCalendarTitleLoading] = useState(true)
+    const [selectedDate, setSelectedDate] = useState(new Date())
 
     useEffect(() => {
         async function getData(hash) {
@@ -38,15 +43,9 @@ function CalendarContent(props) {
         getData(props.match.params.hash)
     }, [props.match.params.hash])
 
-    let rows = []
-    let rows2 = []
-
-    for (let i = 0; i < 48; i++) {
-        rows.push(<tr><td onClick={() => {alert(i)}}>{i}</td><td>{i}</td><td>{i}</td></tr>)
-    }
-
-    for (let i = 1; i < 36; i+=7) {
-        rows2.push(<tr><td>{i}</td><td>{i+1}</td><td>{i+2}</td><td>{i+3}</td><td>{i+4}</td><td>{i+5}</td><td>{i+6}</td></tr>);
+    const onDateChange = date => {
+        setSelectedDate(date)
+        console.log(date)
     }
 
     return (
@@ -58,31 +57,15 @@ function CalendarContent(props) {
             </Row>
             <Row>
                 <Col lg={3}>
-                    <Table variant='dark' style={{width: '100%'}} bordered>
-                        <tbody>
-                            {rows2}
-                        </tbody>
-                    </Table>
+                    {/* Widget */}
+                    <Calendar 
+                        onChange={onDateChange}
+                        value={selectedDate}
+                    />
                 </Col>
-                <Col lg={9}>
-                    <Table bordered variant='dark'>
-                        <thead>
-                            <tr>
-                                <th>
-                                    04.04.2020
-                                </th>
-                                <th>
-                                    05.04.2020
-                                </th>
-                                <th>
-                                    06.04.2020
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {rows}
-                        </tbody>
-                    </Table>
+                <Col lg={9} className='my-css-class'>
+                    {/* Viewer */}
+                    <EventViewer date={selectedDate} />
                 </Col>
             </Row>
         </Container>
