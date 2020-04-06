@@ -1,10 +1,18 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import { 
     Table
 } from 'react-bootstrap'
 
 function EventViewer(props) {
+
+    useEffect(() => {
+        document.getElementById('eventsContent').scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }, [props.date]);
+
     let rows = []
     for (let i = 0; i < 48; i++) {
         rows.push(<tr><td>0:00</td><td>{i+1}</td></tr>)

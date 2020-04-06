@@ -54,7 +54,7 @@ function CalendarContent(props) {
                     <h2>{isCalendarTitleLoading ? "Loading..." : calendarTitle}</h2>
                 </Col>
             </Row>
-            <Row className="content-row">
+            <Row noGutters className="content-row">
                 <Col lg={3} className="h-100">
                     {/* Widget */}
                     <Calendar 
@@ -62,7 +62,7 @@ function CalendarContent(props) {
                         value={selectedDate}
                     />
                 </Col>
-                <Col lg={9} className="h-100 scrollable-content">
+                <Col id="eventsContent" lg={9} className="h-100 scrollable-content">
                     {/* Viewer */}
                     <EventViewer date={selectedDate} />
                 </Col>

@@ -23,6 +23,7 @@
 .react-calendar {
     background: #343A40;
     border: black;
+    width: 95%;
 }
 
 .react-calendar__navigation button {
