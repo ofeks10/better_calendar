@@ -1,8 +1,8 @@
-"""Created events and calendars tables with unicode
+"""created the basic tables
 
-Revision ID: 08c852a719fa
+Revision ID: 97665e338d0a
 Revises: 
-Create Date: 2020-03-30 00:38:33.465683
+Create Date: 2020-04-06 13:50:59.133256
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '08c852a719fa'
+revision = '97665e338d0a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,8 +30,8 @@ def upgrade():
     sa.Column('description', sa.Unicode(length=4096), nullable=True),
     sa.Column('start_time', sa.DateTime(), nullable=True),
     sa.Column('end_time', sa.DateTime(), nullable=True),
-    sa.Column('calendar', sa.Unicode(length=256), nullable=True),
-    sa.ForeignKeyConstraint(['calendar'], ['calendar.hash'], ),
+    sa.Column('calendar_hash', sa.Unicode(length=256), nullable=True),
+    sa.ForeignKeyConstraint(['calendar_hash'], ['calendar.hash'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
