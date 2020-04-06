@@ -13,11 +13,11 @@ import './stylesheets/CalendarMainView.css'
 
 function CalendarMainView(props) {
     const [selectedDate, setSelectedDate] = useState(new Date())
-    const myRef = useRef(null)
+    const scrollableColumnRef = useRef(null)
 
     const onDateChange = date => {
         setSelectedDate(date)
-        myRef.current.scrollTo({
+        scrollableColumnRef.current.scrollTo({
             top: 0,
             behavior: 'smooth'
         })
@@ -32,7 +32,7 @@ function CalendarMainView(props) {
                     value={selectedDate}
                 />
             </Col>
-            <Col ref={myRef} lg={9} className="h-100 scrollable-content">
+            <Col ref={scrollableColumnRef} lg={9} className="h-100 scrollable-content">
                 {/* Viewer */}
                 <EventViewer date={selectedDate} />
             </Col>
