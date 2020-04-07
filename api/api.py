@@ -1,6 +1,6 @@
 import time
 from hashlib import sha1
-from datetime import datetime
+from datetime import datetime, timedelta, time
 
 from flask import Flask
 from flask import request
@@ -55,17 +55,26 @@ def events_handler():
         selected_date = request.args.get('selected_date')
 
         c = Calendar.query.get({'hash': calendar_hash})
-        requested_date = datetime.fromtimestamp(selected_date / 1000.0)
+        requested_date = datetime.fromtimestamp(int(selected_date) / 1000.0)
 
-        events = Event.query.filter(Event.calendar_hash == c.hash and Event.start_time.date() == requested_date.date()).all()
+        start_of_requested_date = datetime.combine(requested_date.date(), time())
+        next_day_of_requested_date = start_of_requested_date + timedelta(days=1)
+
+        events = Event.query.filter(Event.start_time.between(
+            start_of_requested_date.date(),
+            next_day_of_requested_date.date())).filter(
+                Event.calendar_hash == c.hash).all()
 
         events_list = []
         for event in events:
             events_list.append({
                 'title': event.title,
                 'description': event.description,
-                'start_time': event.start_time.timestamp(), 
-                'end_time': event.end_time.timestamp()
+                'start_time': event.start_time.timestamp()*1000, 
+                'end_time': event.end_time.timestamp()*1000
             })
+
+        print(events_list)
+        print('-'*50)
         
         return {'success': True, 'events': events_list}
