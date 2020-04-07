@@ -47,17 +47,20 @@ function EventViewer(props) {
         getData(hash, date)
     }, [date, hash])
     
-    const initialArray = new Array(48)
-    const calendarRowsArray = initialArray.map((index, row) => {
+    const initialArray = [...Array(48)]
+    const calendarRowsArray = initialArray.map((row, index) => {
         const initalizedRowObject = getInitializedCalendarRowObject(index)
-        const {hours, minutes} = initalizedRowObject
-        const currentRowDate = new Date(date.getTime()).setHours(hours).setMinutes(Number(minutes))
+        const { hours, minutes } = initalizedRowObject
+        const currentRowDate = new Date(date.getTime())
+        currentRowDate.setHours(hours)
+        currentRowDate.setMinutes(Number(minutes))
         const currentRowStartTime = currentRowDate.getTime()
         const foundEvent = find(eventsList, {'start_time': currentRowStartTime})
-        const {title, description} = foundEvent
-        const rowObject = { ...initalizedRowObject, title, description}
+        const { title, description } = foundEvent || {}
+        const rowObject = { ...initalizedRowObject, title, description }
         return <CalendarRow key={index} {...rowObject} />
     })
+    console.log(calendarRowsArray)
 
     return (
         <Col ref={scrollableColumnRef} lg={9} className="h-100 scrollable-content">
