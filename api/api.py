@@ -73,8 +73,5 @@ def events_handler():
                 'start_time': event.start_time.timestamp()*1000, 
                 'end_time': event.end_time.timestamp()*1000
             })
-
-        print(events_list)
-        print('-'*50)
         
         return {'success': True, 'events': events_list}
