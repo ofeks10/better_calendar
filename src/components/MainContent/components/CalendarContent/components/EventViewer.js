@@ -4,15 +4,16 @@ import {
     Table,
     Col
 } from 'react-bootstrap'
+import find from 'lodash/find'
 
 import getEvents from './server/GetEvents.js'
 
 function CalendarRow(props) {
-    const {index, title, desc, hours, minutes} = props
+    const {title, description, hours, minutes} = props
     return (
-        <tr key={index}>
+        <tr>
             <td>{hours}:{minutes}</td>
-            <td>{title} - {desc}</td>
+            <td>{title} - {description}</td>
         </tr>
     )
 }
@@ -21,7 +22,7 @@ function getInitializedCalendarRowObject(index) {
     return {
         index: index * 1337,
         title: '',
-        desc: '',
+        description: '',
         hours: Math.floor(index / 2),
         minutes: index % 2 === 0 ? '00' : '30',
     }
@@ -48,37 +49,15 @@ function EventViewer(props) {
     
     const initialArray = new Array(48)
     const calendarRowsArray = initialArray.map((index, row) => {
-        const calendarRowInitialized = getInitializedCalendarRowObject(index)
-        const clonedDate = new Date(date.getTime()).setHours(calendarRowInitialized.hours).setMinutes(Number(calendarRowInitialized.minutes))
+        const initalizedRowObject = getInitializedCalendarRowObject(index)
+        const {hours, minutes} = initalizedRowObject
+        const currentRowDate = new Date(date.getTime()).setHours(hours).setMinutes(Number(minutes))
+        const currentRowStartTime = currentRowDate.getTime()
+        const foundEvent = find(eventsList, {'start_time': currentRowStartTime})
+        const {title, description} = foundEvent
+        const rowObject = { ...initalizedRowObject, title, description}
+        return <CalendarRow key={index} {...rowObject} />
     })
-
-    let rows = new Array(48)
-    eventsList.forEach(event => {
-        const startTime = new Date(event.start_time)
-        rows[startTime.getHours() * 2] = (
-            
-        )
-    })
-
-    for (let i = 0; i < rows.length; i++) {
-        if (!rows[i]) {
-            if (i % 2 === 0) {
-                rows[i] = (
-                    <tr key={i}>
-                        <td>{i}:00</td>
-                        <td>No Event</td>
-                    </tr>
-                )
-            } else {
-                rows[i] = (
-                    <tr key={i}>
-                        <td>{i}:30</td>
-                        <td>No Event</td>
-                    </tr>
-                )
-            }
-        }
-    }
 
     return (
         <Col ref={scrollableColumnRef} lg={9} className="h-100 scrollable-content">
@@ -93,7 +72,7 @@ function EventViewer(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {rows}
+                    {calendarRowsArray}
                 </tbody>
             </Table>
         </Col>
