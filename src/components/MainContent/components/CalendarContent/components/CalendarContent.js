@@ -11,11 +11,12 @@ import './stylesheets/CalendarContent.css'
 
 function CalendarContent(props) {
     const [shouldDisplayMainView, setShouldDisplayMainView] = useState(false)
+    const {hash} = props.match.params
 
     return (
         <Container fluid className="main-content">
-            <CalendarTitle hash={props.match.params.hash} changeShouldDisplay={setShouldDisplayMainView}/>
-            {shouldDisplayMainView && <CalendarMainView hash={props.match.params.hash} />}
+            <CalendarTitle hash={hash} changeShouldDisplay={setShouldDisplayMainView}/>
+            {shouldDisplayMainView && <CalendarMainView hash={hash} />}
         </Container>
     )
 }

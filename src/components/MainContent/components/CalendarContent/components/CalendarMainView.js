@@ -1,41 +1,26 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 
 import {
     Row,
-    Col,
 } from 'react-bootstrap'
-import Calendar from 'react-calendar'
 
 import EventViewer from './EventViewer.js'
+import CalendarWidget from './CalendarWidget.js'
 
-import 'react-calendar/dist/Calendar.css';
+import 'react-calendar/dist/Calendar.css'
 import './stylesheets/CalendarMainView.css'
 
 function CalendarMainView(props) {
     const [selectedDate, setSelectedDate] = useState(new Date())
-    const scrollableColumnRef = useRef(null)
 
     const onDateChange = date => {
         setSelectedDate(date)
-        scrollableColumnRef.current.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        })
     }
 
     return(
         <Row noGutters className="content-row">
-            <Col lg={3} className="h-100">
-                {/* Widget */}
-                <Calendar
-                    onChange={onDateChange}
-                    value={selectedDate}
-                />
-            </Col>
-            <Col ref={scrollableColumnRef} lg={9} className="h-100 scrollable-content">
-                {/* Viewer */}
-                <EventViewer date={selectedDate} />
-            </Col>
+            <CalendarWidget onDateChange={onDateChange} selectedDate={selectedDate} />
+            <EventViewer date={selectedDate} />
         </Row>
     )
 }
