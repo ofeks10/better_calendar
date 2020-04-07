@@ -6,10 +6,6 @@
     height: 93%;
 }
 
-.scrollable-content {
-    overflow-y: scroll;
-}
-
 .react-calendar {
     background: #343A40;
     border: black;

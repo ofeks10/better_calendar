@@ -12,7 +12,7 @@ function CalendarTableHours() {
     })
 
     return (
-        <tbody>
+        <tbody className='h-7'>
             {calendarRowsArray}
         </tbody>
     )

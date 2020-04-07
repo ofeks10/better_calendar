@@ -1,0 +1,9 @@
+.events-container {
+    background-color: white;
+    width: 80%;
+    height: calc(7% - 4px);
+    z-index: 1;
+    position: absolute;
+    right: calc(10% - 2px);
+    top: calc(7% + 2px);
+}

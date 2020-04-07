@@ -17,7 +17,7 @@ function CalendarMainView(props) {
         setSelectedDate(date)
     }
 
-    return(
+    return (
         <Row noGutters className="content-row">
             <CalendarWidget onDateChange={onDateChange} selectedDate={selectedDate} />
             <EventViewer date={selectedDate} hash={props.hash} />
