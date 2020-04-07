@@ -7,26 +7,11 @@ import {
 import find from 'lodash/find'
 
 import getEvents from './server/GetEvents.js'
+import getInitializedCalendarRowObject from './logic/GetIntializedCalendarRowObject.js'
+import CalendarRow from './CalendarRow.js'
+import CalendarTableHeader from './CalendarTableHeader.js'
 
-function CalendarRow(props) {
-    const {title, description, hours, minutes} = props
-    return (
-        <tr>
-            <td>{hours}:{minutes}</td>
-            <td>{title} - {description}</td>
-        </tr>
-    )
-}
-
-function getInitializedCalendarRowObject(index) {
-    return {
-        index: index * 1337,
-        title: '',
-        description: '',
-        hours: Math.floor(index / 2),
-        minutes: index % 2 === 0 ? '00' : '30',
-    }
-}
+import './stylesheets/EventViewer.css'
 
 function EventViewer(props) {
     const scrollableColumnRef = useRef(null)
@@ -50,29 +35,22 @@ function EventViewer(props) {
     const initialArray = [...Array(48)]
     const calendarRowsArray = initialArray.map((row, index) => {
         const initalizedRowObject = getInitializedCalendarRowObject(index)
-        const { hours, minutes } = initalizedRowObject
-        const currentRowDate = new Date(date.getTime())
-        currentRowDate.setHours(hours)
-        currentRowDate.setMinutes(Number(minutes))
-        const currentRowStartTime = currentRowDate.getTime()
-        const foundEvent = find(eventsList, {'start_time': currentRowStartTime})
-        const { title, description } = foundEvent || {}
-        const rowObject = { ...initalizedRowObject, title, description }
+        // const { hours, minutes } = initalizedRowObject
+        // const currentRowDate = new Date(date.getTime())
+        // currentRowDate.setHours(hours)
+        // currentRowDate.setMinutes(Number(minutes))
+        // const currentRowStartTime = currentRowDate.getTime()
+        // const foundEvent = find(eventsList, {'start_time': currentRowStartTime})
+        // const { title, description } = foundEvent || {}
+        const rowObject = { ...initalizedRowObject }
         return <CalendarRow key={index} {...rowObject} />
     })
-    console.log(calendarRowsArray)
 
     return (
         <Col ref={scrollableColumnRef} lg={9} className="h-100 scrollable-content">
             <Table bordered variant='dark'>
                 <thead>
-                    <tr>
-                        <th style={{width: '10%'}}>
-                        </th>
-                        <th>
-                            {date.getDate()}.{date.getMonth() + 1}.{date.getFullYear()}
-                        </th>
-                    </tr>
+                    <CalendarTableHeader date={date} />
                 </thead>
                 <tbody>
                     {calendarRowsArray}
