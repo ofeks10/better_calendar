@@ -11,11 +11,16 @@ function CalendarTitle(props) {
     const [calendarTitle, setCalendarTitle] = useState("")
     const [isCalendarTitleLoading, setCalendarTitleLoading] = useState(true)
 
-    useEffect(async () => {
-        const { success, data } = await getCalendarTitle(props.hash)
-        props.changeShouldDisplay(success)
-        setCalendarTitle(data)
-        setCalendarTitleLoading(false)
+    useEffect(() => {
+
+        async function getTitle (hash, changeShouldDisplay) {
+            const { success, data } = await getCalendarTitle(hash)
+            changeShouldDisplay(success)
+            setCalendarTitle(data)
+            setCalendarTitleLoading(false)
+        }
+
+        getTitle(props.hash, props.changeShouldDisplay)
     }, [props.hash, props.changeShouldDisplay])
 
     return (
