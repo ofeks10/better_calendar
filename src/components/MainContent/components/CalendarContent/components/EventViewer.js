@@ -19,17 +19,18 @@ function CalendarRow(props) {
 
 function getInitializedCalendarRowObject(index) {
     return {
-        index: index,
+        index: index * 1337,
         title: '',
         desc: '',
-        hours: '0',
-        minutes: index === 2 ? '00' : '30',
+        hours: Math.floor(index / 2),
+        minutes: index % 2 === 0 ? '00' : '30',
     }
 }
 
 function EventViewer(props) {
     const scrollableColumnRef = useRef(null)
     const [eventsList, setEventsList] = useState([])
+    const {date, hash} = props
 
     useEffect(() => {
         scrollableColumnRef.current.scrollTo({
@@ -42,12 +43,13 @@ function EventViewer(props) {
             setEventsList(data)
         }
 
-        getData(props.hash, props.date)
-    }, [props.date, props.hash])
+        getData(hash, date)
+    }, [date, hash])
     
     const initialArray = new Array(48)
     const calendarRowsArray = initialArray.map((index, row) => {
-
+        const calendarRowInitialized = getInitializedCalendarRowObject(index)
+        const clonedDate = new Date(date.getTime()).setHours(calendarRowInitialized.hours).setMinutes(Number(calendarRowInitialized.minutes))
     })
 
     let rows = new Array(48)
@@ -82,11 +84,11 @@ function EventViewer(props) {
         <Col ref={scrollableColumnRef} lg={9} className="h-100 scrollable-content">
             <Table bordered variant='dark'>
                 <thead>
-                    <tr ref={props.ref}>
+                    <tr>
                         <th style={{width: '10%'}}>
                         </th>
                         <th>
-                            {props.date.getDate()}.{props.date.getMonth() + 1}.{props.date.getFullYear()}
+                            {date.getDate()}.{date.getMonth() + 1}.{date.getFullYear()}
                         </th>
                     </tr>
                 </thead>
