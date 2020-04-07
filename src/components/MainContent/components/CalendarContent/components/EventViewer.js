@@ -7,6 +7,26 @@ import {
 
 import getEvents from './server/GetEvents.js'
 
+function CalendarRow(props) {
+    const {index, title, desc, hours, minutes} = props
+    return (
+        <tr key={index}>
+            <td>{hours}:{minutes}</td>
+            <td>{title} - {desc}</td>
+        </tr>
+    )
+}
+
+function getInitializedCalendarRowObject(index) {
+    return {
+        index: index,
+        title: '',
+        desc: '',
+        hours: '0',
+        minutes: index === 2 ? '00' : '30',
+    }
+}
+
 function EventViewer(props) {
     const scrollableColumnRef = useRef(null)
     const [eventsList, setEventsList] = useState([])
@@ -25,14 +45,16 @@ function EventViewer(props) {
         getData(props.hash, props.date)
     }, [props.date, props.hash])
     
+    const initialArray = new Array(48)
+    const calendarRowsArray = initialArray.map((index, row) => {
+
+    })
+
     let rows = new Array(48)
     eventsList.forEach(event => {
         const startTime = new Date(event.start_time)
         rows[startTime.getHours() * 2] = (
-            <tr key={event.title}>
-                <td>{startTime.getHours()}:{startTime.getMinutes()}</td>
-                <td>{event.title} - {event.description}</td>
-            </tr>
+            
         )
     })
 
