@@ -105,7 +105,7 @@ function Events(props) {
         getData(hash, date)
     }, [date, hash])
 
-    const eventOjbects = eventsList.map(event =>{
+    const eventOjbects = eventsList.map((event, index) =>{
         const {title, startTime, endTime} = getInitializedEventObject(event)
         const coExistingEvents = getCoExistingEvents(eventsList, event)
         
@@ -119,21 +119,25 @@ function Events(props) {
         const widthNewValue = maxWidth / (maxCoExistingToCoExisting + 1)
 
         const coExistingBeforeThatMoved = getCoExistingEventsBeforeThatMoved(coExistingEvents, event, eventsList)
-        const leftNewOffset = leftBasicOffset + (widthNewValue * coExistingBeforeThatMoved)
+
+        const eventsUntilMe = eventsList.slice(0, index)
+        const eventsBeforeMeWithSameStartTime = eventsUntilMe.filter(evnt => evnt.start_time === event.start_time)
+
+        const leftNewOffset = leftBasicOffset + (widthNewValue * (coExistingBeforeThatMoved + eventsBeforeMeWithSameStartTime.length))
 
         const randomColorCode = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')'
 
         const finalStyle = {
             ...basicStyle,
             backgroundColor: randomColorCode,
-            top: topNewOffset + '%',
-            height: heightNewValue + '%',
+            top: 'calc(' + topNewOffset + '% - ' + ((topNewOffset / rowHeightPercent)) + 'px)',
+            height: 'calc(' + heightNewValue + '% - 8px)',
             width: widthNewValue + '%',
             left: leftNewOffset + '%',
         }
 
         return (
-            <div style={finalStyle}>
+            <div className='m-0' style={finalStyle}>
                 {title}
             </div>
         )
